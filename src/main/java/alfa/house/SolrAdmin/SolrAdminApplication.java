@@ -1,6 +1,8 @@
 package alfa.house.SolrAdmin;
 
 import alfa.house.SolrAdmin.model.Request;
+import org.apache.solr.client.solrj.SolrClient;
+import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;

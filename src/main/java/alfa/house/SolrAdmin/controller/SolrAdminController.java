@@ -5,10 +5,7 @@ import alfa.house.SolrAdmin.service.SolrAdminServiceImpl;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Api(value = "Task Controller", description = "Operation with atalog search")
@@ -16,6 +13,9 @@ public class SolrAdminController {
 
     @Value("${solrUrl}")
     private String solrUrl;
+
+    @Value("${baseSolrUrl}")
+    private String baseSolrUrl;
 
     @Autowired
     SolrAdminServiceImpl service;
@@ -28,6 +28,13 @@ public class SolrAdminController {
     @PostMapping(value = "/new", consumes = "application/json", produces = "text/plain")
     public String sendSolrUpdate(@RequestBody Request request){
         service.sendRequest(request, solrUrl);
+        return "Ok";
+    }
+
+    //http://localhost:8083/delete?id=978-1933988177
+    @PostMapping(value = "/delete", consumes = "application/json", produces = "text/plain")
+    public String deleteFromSolrById (@RequestParam String id){
+        service.deleteById(id, baseSolrUrl);
         return "Ok";
     }
 }
